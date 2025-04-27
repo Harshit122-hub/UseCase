@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import text
 
-DATABASE_URL = "postgresql+psycopg2://postgres:XkCMKctKfIEMgqfgofbl@database-2.cqh4uwqw89ad.us-east-1.rds.amazonaws.com:5432/postgres"
+DATABASE_URL = "Put Your DB URL"
 print('DB',DATABASE_URL)
 engine = create_engine(DATABASE_URL, echo=True)
 print('engine',engine)
