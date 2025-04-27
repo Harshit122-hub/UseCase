@@ -6,6 +6,7 @@ class TaskCRUD:
 
     @staticmethod
     def create_task(db: Session, task_data: TaskCreate):
+        print('TaskCreate',TaskCreate)
         task = Task(**task_data.dict())
         db.add(task)
         db.commit()
@@ -21,13 +22,19 @@ class TaskCRUD:
         return db.query(Task).all()
 
     @staticmethod
-    def update_task_done(db: Session, task_id: int, update_data: TaskUpdate):
+    def update_task(db: Session, task_id: int, update_data: TaskUpdate):
         task = db.query(Task).filter(Task.id == task_id).first()
         if task:
-            task.done = update_data.done
+            update_fields = update_data.dict(exclude_unset=True)
+            for key, value in update_fields.items():
+                setattr(task, key, value)
+
             db.commit()
             db.refresh(task)
         return task
+        
+        return None
+
 
     @staticmethod
     def delete_task(db: Session, task_id: int):
